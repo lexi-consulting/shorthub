@@ -1,0 +1,146 @@
+DO NOT GIVE ME HIGH LEVEL INFORMATION, IF I ASK FOR FIX OR EXPLANATION, I WANT ACTUAL CODE OR EXPLANATION!!! I DON'T WANT "Here's how you can blablabla"
+
+- Be casual unless otherwise specified
+- Be terse
+- Suggest solutions that I didn't think about—anticipate my needs
+- Treat me as an expert
+- Be accurate and thorough
+- Give the answer immediately. Provide detailed explanations and restate my query in your own words if necessary after giving the answer
+- Value good arguments over authorities, the source is irrelevant
+- Consider new technologies and contrarian ideas, not just the conventional wisdom
+- You may use high levels of speculation or prediction, just flag it for me
+- No moral lectures
+- Discuss safety only when it's crucial and non-obvious
+- If your content policy is an issue, provide the closest acceptable response and explain the content policy issue afterward
+- Cite sources whenever possible at the end, not inline
+- No need to mention your knowledge cutoff
+- No need to disclose you're an AI
+- Please respect my prettier preferences when you provide code.
+- Split into multiple responses if one response isn't enough to answer the question.
+
+If I ask for adjustments to code I have provided you, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make. Multiple code blocks are ok.
+
+## Python Rules
+
+Clear project structure with separate directories for source code, tests, docs, and config.
+
+Modular design with distinct files for models, services, controllers, and utilities.
+
+Configuration management using environment variables.
+
+Robust error handling and logging, including context capture.
+
+Comprehensive testing with pytest.
+
+Detailed documentation using docstrings and README files.
+
+Dependency management via https://github.com/astral-sh/uv and virtual environments.
+
+Code style consistency using Ruff.
+
+CI/CD implementation with GitHub Actions or GitLab CI.
+
+AI-friendly coding practices:
+You provide code snippets and explanations tailored to these principles, optimizing for clarity and AI-assisted development.
+
+### Python Naming Conventions
+
+1. **Module Names**: Use short, lowercase names with underscores if needed for readability (e.g., `my_module.py`).
+2. **Global Variables**: Use lowercase with underscores, but use sparingly to avoid debugging issues (e.g., `global_counter`).
+3. **Function Names**: Lowercase with underscores, descriptive of their functionality (e.g., `calculate_total()`).
+4. **Class Names**: Use CamelCase to distinguish from functions and variables (e.g., `EmailParser`).
+5. **Method Names**: Same as functions, lowercase with underscores (e.g., `my_method()`).
+6. **Constant Names**: All capital letters with underscores (e.g., `MAX_OVERFLOW`).
+7. **Private Member Names**: Prefix with an underscore to indicate non-public API (e.g., `_internal_method`).
+8. **Special Names**: Use double underscores for magic methods (e.g., `__init__`).
+
+## HTMX with Django .cursorrules
+1. Use Django's template system with HTMX attributes
+2. Utilize Django's URL routing system
+3. Use Django's class-based views for HTMX responses
+4. Implement Django ORM for database operations
+5. Utilize Django's middleware for request/response processing
+
+### Additional best practices
+1. Use Django's template tags with HTMX attributes
+2. Implement proper CSRF protection with Django's built-in features
+3. Utilize Django's HttpResponse for HTMX-specific responses
+4. Use Django's form validation for HTMX requests
+5. Implement proper error handling and logging
+6. Follow Django's best practices for project structure
+7. Use Django's staticfiles app for managing static assets
+
+### Folder structure
+project_name/
+  app_name/
+    templates/
+    static/
+      css/
+      js/
+    models.py
+    views.py
+    urls.py
+  project_name/
+    settings.py
+    urls.py
+manage.py
+
+## Tailwind instructions
+- Analyze the component requirements thoroughly
+- Include specific DaisyUI component suggestions
+- Specify desired Tailwind CSS classes for styling
+- Include instructions for responsive design
+- Include accessibility considerations
+- Mention any required icons or assets
+- Suggest error handling and loading states
+- Include instructions for animations or transitions if needed
+- Specify any required API integrations or data fetching
+- Mention performance optimization techniques if applicable
+- Include instructions for testing the component
+- Suggest documentation requirements for the component
+
+### TailwindCSS and DaisyUI Rules:
+- Use TailwindCSS utility classes for styling
+- Avoid custom CSS unless absolutely necessary
+- Maintain consistent order of utility classes
+- Use Tailwind's responsive variants for adaptive designs
+- Leverage DaisyUI components for rapid development
+- Customize DaisyUI components only when necessary
+- Define and use design tokens in tailwind.config.js
+
+## Python Rules
+
+Clear project structure with separate directories for source code, tests, docs, and config.
+
+Modular design with distinct files for models, services, controllers, and utilities.
+
+Configuration management using environment variables.
+
+Robust error handling and logging, including context capture.
+
+Comprehensive testing with pytest.
+
+Detailed documentation using docstrings and README files.
+
+Dependency management via https://github.com/astral-sh/uv and virtual environments.
+
+Code style consistency using Ruff.
+
+CI/CD implementation with GitHub Actions or GitLab CI.
+
+AI-friendly coding practices:
+You provide code snippets and explanations tailored to these principles, optimizing for clarity and AI-assisted development.
+
+Follow the following rules:
+For any python file, be sure to ALWAYS add typing annotations to each function or class. Be sure to include return types when necessary. Add descriptive docstrings to all python functions and classes as well. Please use pep257 convention. Update existing docstrings if need be.
+
+Make sure you keep any comments that exist in a file.
+
+When writing tests, make sure that you ONLY use pytest or pytest plugins, do NOT use the unittest module. All tests should have typing annotations as well. All tests should be in ./tests. Be sure to create all necessary files and folders. If you are creating files inside of ./tests or ./src/goob_ai, be sure to make a init.py file if one does not exist.
+
+All tests should be fully annotated and should contain docstrings. Be sure to import  the following if TYPE_CHECKING:
+from _pytest.capture import CaptureFixture
+from _pytest.fixtures import FixtureRequest
+from _pytest.logging import LogCaptureFixture
+from _pytest.monkeypatch import MonkeyPatch
+from pytest_mock.plugin import MockerFixture
