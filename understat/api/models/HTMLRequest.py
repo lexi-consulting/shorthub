@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-class UnderstatHTMLRequest(models.Model):
+class HTMLRequest(models.Model):
     """
     Model to store HTML requests made to Understat, including the URL, 
     response content, parsed data, and timestamps for creation and modification.
