@@ -1,0 +1,36 @@
+{% load static %}
+
+<div class="overflow-x-auto">
+  {% if form_field %}
+  <input type="hidden" id="{{ form_field }}" name="{{ form_field }}" value="">
+  {% endif %}
+  <table id="{{ id }}" class="table w-full">
+    <thead class="text-xl text-normal text-primary">
+      <tr>
+        {% for header in headers %}
+        <th>{{ header }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody class="text-normal text-primary">
+      {% for item in items %}
+      <tr {% if form_field %} class="selectable-row" _="on click 
+          remove .bg-accent from .selectable-row
+          remove .bg-primary from me
+          add .bg-accent to me
+          on mouseover 
+          add .bg-primary to me
+          add .text-secondary to me
+          on mouseout 
+          remove .bg-primary from me
+          remove .text-secondary from me
+          then 
+          set the value of #{{ form_field }} to my.querySelector('.id').innerHTML" {% endif %}>
+        {% for value in item %}
+        <td {% if forloop.counter0 == 0 %}class="id"{% endif %}>{{ value }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div> 

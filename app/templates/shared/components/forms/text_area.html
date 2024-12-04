@@ -1,0 +1,8 @@
+{% extends "shared/components/forms/field.html" %}
+{% load static %}
+
+{% block field_input %}
+<textarea id="{{ id }}" name="{{ id }}" 
+          class="textarea textarea-bordered w-full h-24 bg-secondary text-primary focus:ring-0 focus:ring-offset-0 outline-none" 
+          {% if required %} required {% endif %}></textarea>
+{% endblock %}

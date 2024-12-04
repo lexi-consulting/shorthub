@@ -1,0 +1,10 @@
+{% load static %}
+<header class="mb-12 bg-secondary shadow-lg p-6 rounded-b-lg flex items-center justify-between">
+    <div class="flex items-center">
+        <div class="mr-6 h-24 flex items-center hover:scale-105 cursor-pointer">
+            <a href="{% url 'index' %}">
+                {% include 'shared/img/logo.html' with height=96 width=96 %}
+            </a>
+        </div>
+    </div>
+</header>

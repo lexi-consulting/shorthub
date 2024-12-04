@@ -1,0 +1,42 @@
+{% load static %}
+
+<div class="bg-secondary shadow-md rounded-lg p-6 w-full max-w-2xl border-t-2 border-muted">
+    <form method="post" enctype="multipart/form-data" hx-post="{% url 'its_fine' %}" 
+          hx-target="#form-response" hx-swap="innerHTML">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div id="{{ field.id_for_label }}_block" class="transition-opacity duration-300 {% if not forloop.first %}hidden{% endif %}">
+                {% if field.field.widget.input_type == "text" %}
+                    {% include 'shared/components/forms/text_field.html' with id=field.id_for_label label=field.label type=field.field.widget.input_type required=field.field.required %}
+                {% elif field.field.widget.input_type == "textarea" %}
+                    {% include 'shared/components/forms/text_area.html' with id=field.id_for_label label=field.label required=field.field.required %}
+                {% elif field.field.widget.input_type == "file" %}
+                    {% include 'shared/components/forms/image_picker.html' with id=field.id_for_label label=field.label preview_id=field.id_for_label|add:"-preview" %}
+                {% elif field.field.widget.input_type == "email" %}
+                    {% include 'shared/components/forms/text_field.html' with id=field.id_for_label label=field.label type='email' required=field.field.required %}
+                {% elif field.field.widget.input_type == "password" %}
+                    {% include 'shared/components/forms/text_field.html' with id=field.id_for_label label=field.label type='password' required=field.field.required %}
+                {% else %}
+                    {{ field }}  <!-- Fallback for other field types -->
+                {% endif %}
+                {% include 'shared/components/forms/navigation_bar.html' with 
+                    back_class='btn-outline'
+                    continue_class='bg-accent text-secondary'
+                    submit_class='bg-accent text-secondary'
+                    block_id=field.id_for_label|add:'_block'
+                    previous_block_id=previous_field.id_for_label|add:'_block'
+                    next_block_id=next_field.id_for_label|add:'_block'
+                    submit=forloop.last
+                %}
+            </div>
+            {% with field as previous_field %}
+                {% with forloop.counter0|add:1 as next_index %}
+                    {% with form|slice:next_index|last as next_field %}
+                    {% endwith %}
+                {% endwith %}
+            {% endwith %}
+        {% endfor %}
+    </form>
+    <div id="form-response" class="mt-4"></div>
+</div>

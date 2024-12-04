@@ -1,0 +1,62 @@
+{% comment %}
+    Usage:
+    {% include 'shared/components/nav/tabs.html' with tabs=tabs %}
+
+    Where 'tabs' is a list of dictionaries, each containing:
+    - 'id': A unique identifier for the tab
+    - 'label': The text to display on the tab
+    - 'content_url': The URL to fetch content when the tab is active (optional)
+    - 'active': Boolean indicating if the tab should be initially active (optional)
+{% endcomment %}
+{% load custom_filters %}
+<div class="container mx-auto px-4 py-4">
+    <div class="w-full bg-secondary shadow-md rounded-lg p-6">
+        <div class="text-center">
+            <div class="flex justify-center space-x-4">
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-1/2 relative">
+                            <div class="flex justify-between gap-4 relative">
+                                <div id="tabColorIndicator" class="absolute top-0 left-0 h-full w-[calc(100%/{{ tabs|length }})] bg-primary transition-all duration-300 border border-primary rounded-full"></div>
+                                {% for tab in tabs %}
+                                    <button id="toggle{{ tab.id|capfirst }}" 
+                                            class="tab-toggle flex-1 text-center py-2 px-4 rounded-full transition-all duration-300 
+                                                   {% if tab.active %}text-secondary active{% else %}text-primary{% endif %} 
+                                                   relative z-10 {% if not tab.active %}shadow-lg{% else %}shadow-none{% endif %}"
+                                            hx-get="{{ tab.content_url }}" 
+                                            hx-target="#{{ tab.id }}Content" 
+                                            _="on click 
+                                               if my.classList does not contain 'active'
+                                               then 
+                                                 set activeTab to .active in #tabContents
+                                                 remove .active from activeTab
+                                                 add .hidden to activeTab
+                                                 remove .hidden from #{{ tab.id }}Content
+                                                 add .active to #{{ tab.id }}Content
+                                                 set leftPos to ({{ forloop.counter0 }} * (100/{{ tabs|length }}))
+                                                 set #tabColorIndicator.style.left to leftPos + '%'
+                                                 remove .text-secondary .active .shadow-none from .tab-toggle
+                                                 add .text-primary .shadow-lg to .tab-toggle
+                                                 add .text-secondary .active .shadow-none to me
+                                                 remove .text-primary .shadow-lg from me
+                                               end">
+                                        {{ tab.label }}
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tabContents" class="w-full flex justify-center">
+                        {% for tab in tabs %}
+                            <div id="{{ tab.id }}Content" class="tab-content min-w-[75%] {% if not tab.active %}hidden{% endif %} {% if tab.active %}active{% endif %}">
+                                {% if tab.active and tab.content_url %}
+                                    <div hx-get="{{ tab.content_url }}" hx-trigger="load"></div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

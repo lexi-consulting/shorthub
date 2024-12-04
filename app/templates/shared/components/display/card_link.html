@@ -1,0 +1,9 @@
+{% load static %}
+<a href="{% url link_url %}" class="block mb-8" hx-get="{% url link_url %}" hx-target="#main-content" hx-swap="innerHTML">
+    <div class="card w-96 bg-primary shadow-xl mx-auto transform transition-transform duration-300 hover:scale-105 overflow-hidden">
+        <div class="h-48 bg-cover bg-center rounded-t-xl" style="background-image: url('{% static image_file %}');"></div>
+        <div class="card-body">
+            <h2 class="text-xl font-normal text-center text-secondary h-1/4 mx-auto">{{ link_text }}</h2>
+        </div>
+    </div>
+</a>

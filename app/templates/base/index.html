@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %} <!-- Extend the base template -->
+{% load static %}
+
+{% block header %}
+    {% include 'shared/components/layout/header.html' with title="ShortHub" subtitle="" %}
+{% endblock %}
+
+{% block content %}
+    {% block main_content %}
+        {% include 'base/home.html' %}  <!-- Include home.html here -->
+    {% endblock %}
+{% endblock %}

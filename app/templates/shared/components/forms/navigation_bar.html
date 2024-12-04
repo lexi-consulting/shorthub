@@ -1,0 +1,16 @@
+{% load static %}
+<div class="flex justify-between">
+    <div>
+        {% if previous_block_id %}
+            {% include 'shared/components/nav/back_button.html' %}
+        {% endif %}
+    </div>
+    <div>
+        {% if submit %}
+            {% include 'shared/components/forms/submit_button.html' %}
+        {% endif %}
+        {% if not submit and next_block_id %}
+            {% include 'shared/components/nav/continue_button.html' %}
+        {% endif %}
+    </div>
+</div>

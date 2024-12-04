@@ -1,0 +1,13 @@
+{% extends "shared/components/forms/field.html" %}
+{% load static %}
+
+{% block field_input %}
+    <input type="{{ type }}" id="{{ id }}" name="{{ id }}" autocomplete="{{ autocomplete }}"
+           class="input input-bordered w-full h-12 bg-secondary text-primary border-muted" 
+           {% if hs %} _="{{ hs }}" {% endif %}
+           {% if required %} required {% endif %}
+           {% if placeholder %} placeholder="{{ placeholder }}" {% endif %}
+           {% if value %} value="{{ value }}" {% endif %}
+    />
+    {{ block.super }}
+{% endblock %}

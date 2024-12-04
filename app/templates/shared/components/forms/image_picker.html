@@ -1,0 +1,48 @@
+{% extends "shared/components/forms/field.html" %}
+{% load static %}
+
+{% block field_input %}
+<div class="relative">
+    <input type="file" id="{{ id }}" name="{{ id }}" 
+           class="file-input hidden" accept="image/*" 
+           _="on input
+                if (my.files.length > 0)
+                    set #{{ preview_id }}.src to URL.createObjectURL(my.files[0])
+                    remove .hidden from #{{ preview_id }}
+                    remove .hidden from #{{ preview_id }}-button
+                    add .hidden to #{{ id }}-button
+                end "/>
+    <label id="{{ id }}-button" for="{{ id }}" 
+           class="flex items-center justify-center w-full h-12 border-2 border-dashed border-muted rounded cursor-pointer">
+        <span class="text-muted">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </span>
+    </label>
+    <div class="mt-2 relative flex justify-center">
+        <div class="relative inline-block">
+            <button id="{{ preview_id }}-button" type="button" 
+                    class="hidden absolute top-0 right-0 z-10 bg-accent text-secondary rounded-full w-6 h-6 flex items-center justify-center" 
+                    _="on click 
+                        set #{{ preview_id }}.src to '' 
+                        then add .hidden to #{{ preview_id }} 
+                        then set #{{ id }}.value to ''
+                        then remove .hidden from #{{ id }}-button 
+                        then add .hidden to me">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+            <img id="{{ preview_id }}" class="max-h-[33vh] rounded hidden mx-auto" 
+                 alt="{{ label }} Preview" 
+                 _="on load 
+                        if (my.src !== '') 
+                            remove .hidden from #{{ preview_id }}-button 
+                        else 
+                            add .hidden to #{{ preview_id }}-button"/>
+        </div>
+    </div>
+</div>
+{% endblock %}
