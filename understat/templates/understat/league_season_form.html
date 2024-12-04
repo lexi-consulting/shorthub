@@ -1,6 +1,7 @@
 {% load static %}
 <div class="bg-secondary shadow-md rounded-lg p-6 w-full max-w-2xl border-t-2 border-muted">
     <form id="league_season_form" method="get" hx-post="{% url 'mine_league_season_data' %}" hx-target="#main-content" hx-swap="innerHTML">
+        {% csrf_token %}
         {% include 'shared/components/forms/dropdown.html' with name='league' id='league' options=leagues label='League' %}
         {% include 'shared/components/forms/dropdown.html' with name='season' id='season' options=seasons label='Season' %}
         {% include 'shared/components/forms/submit_button.html' with class='bg-primary text-secondary hover:text-primary hover:scale-105 transition-transform duration-300 flex items-center justify-center' label='Fetch Data' block_id='league_season_form' success_message_id='success-message' %}
