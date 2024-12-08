@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from app import views
 from understat.api.views import mine_league_season_data, mine_league_data, get_upcoming_fixtures
+from predictor.api.views import goal_predictor_view as predict_week_view
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('historical-data/', views.league_season_form, name='historical_data'),
     path('latest-data/', views.league_form_view, name='latest_data'),
     path('upcoming-fixtures/', views.upcoming_fixtures, name='upcoming_fixtures'),
+    path('predict-week/', predict_week_view.predict_week_view, name='predict_week'),
 ]
