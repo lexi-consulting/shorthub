@@ -21,6 +21,7 @@ class UnderstatDatabaseService:
                     .replace("True", "true")
                     .replace("False", "false")
                     .replace("\'", '"')
+                    .replace("None", "0")
                 )
                 parsed_data = json.loads(cleaned_data)
                 dates_data = parsed_data.get('datesData', [])
@@ -50,6 +51,9 @@ class UnderstatDatabaseService:
                     match_datetime = timezone.make_aware(
                         timezone.datetime.strptime(match_data['datetime'], '%Y-%m-%d %H:%M:%S')
                     )
+
+                    if 'forecast' not in match_data:
+                        match_data['forecast'] = {"w": 0, "l": 0, "d": 0}
                     
                     Match.objects.update_or_create(
                         match_id=match_data['id'],

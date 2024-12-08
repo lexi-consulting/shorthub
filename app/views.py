@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from understat.api.constants.UnderstatConstants import UnderstatConstants
-
+from understat.api.views.get_upcoming_fixtures import get_upcoming_fixtures as fetch_upcoming_fixtures
+import json
+from django.http import JsonResponse
 def index_view(request):
     return render(request, 'base/index.html')
 
@@ -34,3 +36,8 @@ def league_form_view(request):
         'allow_multiple': True
     }
     return render(request, 'understat/league_form.html', context)  
+
+def upcoming_fixtures(request):
+    """Render the upcoming fixtures using the fetched HTML content."""
+    context = json.loads(fetch_upcoming_fixtures(request).content)
+    return render(request, 'understat/upcoming_fixtures.html', context)
