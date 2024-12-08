@@ -1,8 +1,8 @@
-<button type="submit" class="btn border-none bg-secondary text-primary hover:text-secondary hover:scale-105 transition-transform duration-300 flex items-center" {% if show_spinner|default_if_none:True %} hx-indicator="#spinner" {% endif %}>
+<button type="submit" 
+        class="btn border-none bg-secondary text-primary hover:text-secondary hover:scale-105 transition-transform duration-300 flex items-center" 
+        {% if show_spinner|default_if_none:True %} hx-indicator="#spinner" {% endif %}
+        hx-disable-elt="self">
     Submit
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-    </svg>
     {% if show_spinner|default_if_none:True %}
         {% include 'shared/img/icons/spinner.html' %}
     {% endif %}

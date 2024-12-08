@@ -1,0 +1,11 @@
+{% load static %}
+<div class="bg-secondary shadow-md rounded-lg p-6 w-full max-w-xl border-t-2 border-muted">
+    <form id="league_form" method="get" hx-post="{% url 'mine_league_data' %}" hx-target="#league_form-response" hx-swap="innerHTML">
+        {% csrf_token %}
+        <div class="w-full">
+            {% include 'shared/components/display/table.html' with id='league_table' headers=league_headers items=league_items form_field=form_field_league allow_multiple=allow_multiple %}
+        </div>
+        {% include 'shared/components/forms/submit_button.html' with class='bg-primary text-secondary hover:text-primary hover:scale-105 transition-transform duration-300 flex items-center justify-center' label='Fetch League Data' block_id='league_form' success_message_id='success-message' %}
+        <div id="league_form-response"></div>
+    </form>
+</div> 

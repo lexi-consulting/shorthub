@@ -1,36 +1,60 @@
 {% load static %}
 
 <div class="overflow-x-auto">
-  {% if form_field %}
-  <input type="hidden" id="{{ form_field }}" name="{{ form_field }}" value="">
-  {% endif %}
   <table id="{{ id }}" class="table w-full">
     <thead class="text-xl text-normal text-primary">
       <tr>
         {% for header in headers %}
-        <th>{{ header }}</th>
+        <th>{% if header %}{{ header }}{% else %}
+          {% if allow_multiple %}
+            <div class="flex justify-center">
+              <button type="button" class="btn btn-primary" 
+                      hx-on="click: 
+                        if (this.textContent.trim() === 'Select All') {
+                          this.closest('table').querySelectorAll('tr.selectable-row:not(.bg-accent)').forEach(row => row.click());
+                          this.textContent = 'Deselect All';
+                        } else {
+                          this.closest('table').querySelectorAll('tr.selectable-row.bg-accent').forEach(row => row.click());
+                          this.textContent = 'Select All';
+                        }">
+                Select All
+              </button>
+            </div>
+            {% endif %}
+          {% endif %}
+        </th>
         {% endfor %}
       </tr>
     </thead>
     <tbody class="text-normal text-primary">
       {% for item in items %}
-      <tr {% if form_field %} class="selectable-row" _="on click 
+      <tr class="selectable-row" _="on click 
+          {% if not allow_multiple %}
           remove .bg-accent from .selectable-row
           remove .bg-primary from me
           add .bg-accent to me
+          toggle .hidden on .check-icon in me
+          toggle [@checked] on .checkbox in me
+          {% else %}
+          toggle .bg-accent on me
+          toggle .hidden on .check-icon in me
+          toggle [@checked] on .checkbox in me
+          {% endif %}
           on mouseover 
-          add .bg-primary to me
-          add .text-secondary to me
+          add .bg-primary .text-secondary to me
           on mouseout 
-          remove .bg-primary from me
-          remove .text-secondary from me
-          then 
-          set the value of #{{ form_field }} to my.querySelector('.id').innerHTML" {% endif %}>
+          remove .bg-primary .text-secondary from me" >
         {% for value in item %}
         <td {% if forloop.counter0 == 0 %}class="id"{% endif %}>{{ value }}</td>
         {% endfor %}
+        <td>
+          <input type="checkbox" name="{{ form_field }}" value="{{ item.0 }}" class="checkbox hidden">
+          <div class="check-icon flex items-center justify-center hidden" >
+            {% include 'shared/img/icons/check.html' %}
+          </div>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
-</div> 
+</div>

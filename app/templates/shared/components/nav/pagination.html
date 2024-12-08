@@ -1,0 +1,38 @@
+{% load static %
+<div class="pagination text-right">
+    <span class="step-links flex items-center">
+        {% if page_obj.has_previous %}
+        <a hx-get="{{ url }}?page=1" 
+            hx-target="#{{ id }}"
+            hx-swap="outerHTML"
+            class="inline-block">
+            {% include 'shared/img/icons/back_button.html' %}
+        </a>
+        <a hx-get="{{ url }}?page={{ page_obj.previous_page_number }}"
+            hx-target="#{{ id }}"
+            hx-swap="outerHTML"
+            class="inline-block">
+            {% include 'shared/img/icons/back_button.html' %}
+        </a>
+        {% endif %}
+
+        <span class="current inline-block align-middle mx-2">
+        {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a hx-get="{{ url }}?page={{ page_obj.next_page_number }}"
+            hx-target="#{{ id }}"
+            hx-swap="outerHTML"
+            class="inline-block">
+            {% include 'shared/img/icons/forward_button.html' %}
+        </a>
+        <a hx-get="{{ url }}?page={{ page_obj.paginator.num_pages }}"
+            hx-target="#{{ id }}"
+            hx-swap="outerHTML"
+            class="inline-block">
+            {% include 'shared/img/icons/forward_button.html' %}
+        </a>
+        {% endif %}
+    </span>
+</div>}

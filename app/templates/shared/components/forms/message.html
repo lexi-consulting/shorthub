@@ -1,0 +1,9 @@
+{% load static %}
+
+<div class="bg-secondary shadow-md rounded-lg p-6 w-full max-w-2xl border-t-2 border-muted message {% if is_error %}error{% else %}success{% endif %}" id="{{ id }}">
+    <ul class="list-none">
+        {% for message in results %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
