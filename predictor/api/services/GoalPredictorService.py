@@ -22,6 +22,7 @@ class GoalPredictorService:
         self.model_under = None
         self.model_over = None
         self.model_both = None
+        self.model = None
 
     @staticmethod
     def get_last_5_matches(team, match_date, home=True) -> List[Match]:
@@ -40,6 +41,8 @@ class GoalPredictorService:
         data = []
         matches_with_results = Match.objects.filter(is_result=True).order_by('datetime')
         print("Total matches with results: ", len(matches_with_results))
+        # For testing, only use 1000 matches
+        matches_with_results = matches_with_results[:1000]
         count = 0
         for match in matches_with_results:
             count += 1
@@ -185,25 +188,25 @@ class GoalPredictorService:
         y_test_encoded = to_categorical(y_test[:, 0], num_classes=3)    # Use only the first column
 
         # Define the CNN model with an Input layer
-        model = Sequential([
-            Input(shape=(10, 5, 2)),  # Update the input shape to match the new predictor matrix
-            Conv2D(64, kernel_size=(3, 3), activation='relu', padding='same'),  # Use padding to maintain dimensions
-            Conv2D(128, kernel_size=(3, 3), activation='relu', padding='same'), # Use padding to maintain dimensions
+        self.model = Sequential([
+            Input(shape=(10, 5, 2)),
+            Conv2D(64, kernel_size=(3, 3), activation='relu', padding='same'),
+            Conv2D(128, kernel_size=(3, 3), activation='relu', padding='same'),
             Flatten(),
-            Dense(1024, activation='relu'),  # Increase the number of neurons
-            Dense(256, activation='relu'),  # Add another dense layer
-            Dense(32, activation='relu'),  # Add another dense layer
-            Dense(3, activation='softmax')  # Three output classes
+            Dense(1024, activation='relu'),
+            Dense(256, activation='relu'),
+            Dense(32, activation='relu'),
+            Dense(3, activation='softmax')
         ])
 
         # Compile the model
-        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        self.model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
         # Train the model
-        model.fit(X_train, y_train_encoded, epochs=20, batch_size=32, validation_split=0.2)  # Increase epochs
+        self.model.fit(X_train, y_train_encoded, epochs=10, batch_size=32, validation_split=0.2)  # Increase epochs
 
         # Evaluate the model
-        y_pred_encoded = model.predict(X_test)
+        y_pred_encoded = self.model.predict(X_test)
         y_pred = np.argmax(y_pred_encoded, axis=1)
         y_true = np.argmax(y_test_encoded, axis=1)
 
