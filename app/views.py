@@ -3,6 +3,7 @@ from understat.api.constants.UnderstatConstants import UnderstatConstants
 from understat.api.views.get_upcoming_fixtures import get_upcoming_fixtures as fetch_upcoming_fixtures
 import json
 from django.http import JsonResponse
+from predictor.api.models.TrainedModel import TrainedModel
 
 def index_view(request):
     return render(request, 'base/index.html')
@@ -43,3 +44,8 @@ def upcoming_fixtures(request):
     context = json.loads(fetch_upcoming_fixtures(request).content)
 
     return render(request, 'understat/upcoming_fixtures.html', context)
+def view_models(request):
+    """Render the view models page with all trained models."""
+    models = TrainedModel.objects.all()
+    context = {'models': models}
+    return render(request, 'predictor/view_models.html', context)

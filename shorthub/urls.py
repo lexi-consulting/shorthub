@@ -31,5 +31,6 @@ urlpatterns = [
     path('upcoming-fixtures/', views.upcoming_fixtures, name='upcoming_fixtures'),
     path('predict-week/', predict_week_view, name='predict_week'),
     path('train-model/', train_model_view, name='train_model'),
+    path('view-models/', views.view_models, name='view_models'),
 ]
 

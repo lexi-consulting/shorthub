@@ -61,6 +61,7 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / "app" / "templates",
             BASE_DIR / "understat" / "templates",
+            BASE_DIR / "predictor" / "templates",
         ],
         "APP_DIRS": True,
         "OPTIONS": {
