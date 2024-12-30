@@ -5,7 +5,7 @@ from typing import Dict
 import logging
 import numpy as np
 import pickle
-
+from datetime import datetime
 logger = logging.getLogger(__name__)
 
 def train_model_view(request: HttpRequest) -> JsonResponse:
@@ -29,7 +29,7 @@ def train_model_view(request: HttpRequest) -> JsonResponse:
         weights_bytes = pickle.dumps(model_trainer.model.get_weights())
         
         trained_model = TrainedModel(
-            model_name="cnn_model",
+            model_name="cnn_model_" + datetime.now().strftime("%Y%m%d%H%M%S"),
             architecture=model_trainer.model.to_json(),
             weights=weights_bytes
         )

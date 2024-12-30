@@ -1,6 +1,6 @@
 {% load static %}
 <div class="mb-4 {% if hidden|default:False %}hidden{% endif %}">
-    <label id="{{ id }}Label" for="{{ id }}" class="text-xl font-medium text-primary mb-2 block">{{ label }}</label>
+    <label id="{{ id }}Label" for="{{ id }}" class="text-l font-medium text-primary mb-2 block">{{ label }}</label>
     {% block field_input %}
     <label id="{{ id }}-error " class="mt-2" for="{{ id }}">
         {% for error in field.errors %}

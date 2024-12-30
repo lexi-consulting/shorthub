@@ -18,9 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from app import views
 from understat.api.views import mine_league_season_data, mine_league_data, get_upcoming_fixtures
-from predictor.api.views.goal_predictor_view import predict_week_view
+from predictor.api.views.goal_predictor_view import predict_week_view, predict_fixtures_view
 from predictor.api.views.train_model_view import train_model_view
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/understat/', include('understat.api.urls')),
@@ -31,6 +30,7 @@ urlpatterns = [
     path('upcoming-fixtures/', views.upcoming_fixtures, name='upcoming_fixtures'),
     path('predict-week/', predict_week_view, name='predict_week'),
     path('train-model/', train_model_view, name='train_model'),
+    path('predict-fixtures/', predict_fixtures_view, name='predict_fixtures'),
     path('view-models/', views.view_models, name='view_models'),
 ]
 
